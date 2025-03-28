@@ -13,7 +13,7 @@
 
 ### Web
 #### Challenge - 1
-- **Description: A Text to PDF Application with SSRF**
+- **Description: A HTML to PDF Application with SSRF**
 #### Challenge - 2
 - **Description: JWT Login Bypass with Exposed JWT Secret in Js Files**
 #### Challenge - 3
