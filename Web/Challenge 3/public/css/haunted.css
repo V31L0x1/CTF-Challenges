@@ -1,0 +1,458 @@
+/* Haunted Theme CSS */
+:root {
+    --haunted-bg: #0f0f17;
+    --haunted-text: #e6e6fa;
+    --haunted-accent: #9370db;
+    --haunted-secondary: #483d8b;
+    --haunted-purple: #8a2be2;
+    --haunted-dark: #1a1a2e;
+    --haunted-card: #1a1a2e;
+    --haunted-green: #38b95e;
+    --ghost-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Base Styles */
+body {
+    font-family: 'Creepster', 'Fira Sans', cursive, sans-serif;
+    color: var(--haunted-text);
+    background-color: var(--haunted-bg);
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Haunted background with fog effect */
+.haunted-bg {
+    background-color: var(--haunted-bg);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(75, 0, 130, 0.08) 0%, rgba(0, 0, 0, 0) 25%),
+        radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.05) 0%, rgba(0, 0, 0, 0) 30%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M30,30 Q50,10 70,30 T90,50 Q70,70 50,90 Q30,70 10,50 Q30,30 50,10" stroke="rgba(138,43,226,0.03)" fill="none" stroke-width="1"/></svg>');
+    min-height: 100vh;
+    animation: backgroundPulse 15s infinite alternate;
+}
+
+@keyframes backgroundPulse {
+    0% { background-color: var(--haunted-bg); }
+    50% { background-color: #110d1c; }
+    100% { background-color: var(--haunted-bg); }
+}
+
+/* Navbar styling */
+.haunted-navbar {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+    box-shadow: 0 5px 15px rgba(75, 0, 130, 0.1);
+}
+
+.navbar-brand .haunted-text {
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--haunted-accent);
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+.haunted-text {
+    color: var(--haunted-accent);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+
+/* Floating ghost animation for navbar */
+.floating-ghost {
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+    margin-left: 5px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Card styling */
+.haunted-card {
+    background-color: rgba(15, 15, 25, 0.7);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    margin-bottom: 20px;
+}
+
+.haunted-card:hover {
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.2);
+    transform: translateY(-5px) rotateX(2deg) rotateY(1deg);
+}
+
+/* Post card styling */
+.post-card {
+    background-color: rgba(20, 20, 32, 0.8);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--haunted-purple);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.post-card:hover {
+    transform: translateX(5px);
+    border-left-color: var(--haunted-green);
+}
+
+.post-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    color: var(--haunted-text);
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+}
+
+.post-author {
+    color: var(--haunted-accent);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.post-content {
+    color: var(--haunted-text);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Form styling */
+.haunted-form {
+    background-color: var(--haunted-card);
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(95, 51, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.haunted-form label {
+    color: var(--haunted-text);
+    font-weight: bold;
+}
+
+.haunted-form .form-control {
+    background-color: rgba(30, 30, 45, 0.7);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    color: var(--haunted-text);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.haunted-form .form-control:focus {
+    background-color: rgba(40, 40, 60, 0.7);
+    border-color: var(--haunted-purple);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+    color: white;
+}
+
+.haunted-btn {
+    border-color: var(--haunted-purple);
+    color: var(--haunted-text);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.haunted-btn:hover {
+    background-color: var(--haunted-purple);
+    color: white;
+}
+
+/* Footer */
+.haunted-footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #aaa;
+    padding: 20px 0;
+    border-top: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+/* Loading animation */
+.spooky-loading {
+    display: inline-block;
+    position: relative;
+    color: var(--haunted-accent);
+    font-style: italic;
+    margin: 20px 0;
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+    animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.dots {
+    display: inline-block;
+    width: 20px;
+    animation: dots-animation 1.5s infinite;
+}
+
+/* Ghost animation */
+.ghost-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -10;
+    overflow: hidden;
+}
+
+.ghost {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
+    animation: ghost-float 15s ease-in-out infinite;
+    opacity: 0;
+}
+
+.ghost:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+}
+
+/* Animations */
+@keyframes ghost-float {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+    }
+    10% {
+        opacity: 0.1;
+    }
+    90% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(100px) rotate(20deg);
+    }
+}
+
+@keyframes dots-animation {
+    0% { content: "."; }
+    33% { content: ".."; }
+    66% { content: "..."; }
+}
+
+/* Shake Animation */
+.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Add spooky typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .haunted-card {
+        margin: 0 10px;
+    }
+}
+
+/* Ghost spawner - creates multiple ghosts */
+.ghost-container::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: 
+        113px 142px rgba(255, 255, 255, 0.02),
+        523px 642px rgba(255, 255, 255, 0.03),
+        923px 342px rgba(255, 255, 255, 0.02),
+        323px 942px rgba(255, 255, 255, 0.03),
+        723px 442px rgba(255, 255, 255, 0.02),
+        1223px 742px rgba(255, 255, 255, 0.03);
+    animation: ghost-spawn 15s linear infinite;
+}
+
+@keyframes ghost-spawn {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Blood drip effect for headers */
+h1.haunted-text, h2.haunted-text {
+    position: relative;
+    overflow: hidden;
+}
+
+h1.haunted-text:after, h2.haunted-text:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 10px;
+    background: linear-gradient(to bottom, var(--haunted-purple), transparent);
+    animation: drip 4s ease-in-out infinite;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+@keyframes drip {
+    0% { height: 0; opacity: 0; }
+    20% { opacity: 0.5; }
+    50% { height: 20px; opacity: 0.3; }
+    100% { height: 30px; opacity: 0; }
+}
+
+/* Text glitch effect */
+.glitch {
+    position: relative;
+}
+
+.glitch:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 red;
+    top: 0;
+    color: var(--haunted-accent);
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: glitch 3s infinite linear alternate-reverse;
+}
+
+.glitch:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 1px 0 blue;
+    top: 0;
+    color: var(--haunted-accent);
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: glitch 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+    0% {
+        clip: rect(5px, 9999px, 14px, 0);
+    }
+    5% {
+        clip: rect(53px, 9999px, 36px, 0);
+    }
+    10% {
+        clip: rect(92px, 9999px, 78px, 0);
+    }
+    15% {
+        clip: rect(23px, 9999px, 13px, 0);
+    }
+    20% {
+        clip: rect(67px, 9999px, 34px, 0);
+    }
+    25% {
+        clip: rect(5px, 9999px, 14px, 0);
+    }
+    100% {
+        clip: rect(5px, 9999px, 14px, 0);
+    }
+}
+
+/* Fog effect */
+.haunted-bg:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" /><feComponentTransfer><feFuncR type="linear" slope="3" intercept="0" /><feFuncG type="linear" slope="3" intercept="0" /><feFuncB type="linear" slope="3" intercept="0" /></feComponentTransfer><feColorMatrix type="matrix" values="0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0 0.3 0 0 0 0.05 0" /></filter><rect width="100%" height="100%" filter="url(%23noise)" /></svg>');
+    pointer-events: none;
+    opacity: 0.2;
+    z-index: -10;
+    animation: fog 20s infinite alternate;
+}
+
+@keyframes fog {
+    0% { opacity: 0.1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 0.1; }
+}
+
+/* Spooky links hover effect */
+a:not(.btn) {
+    position: relative;
+    color: var(--haunted-accent);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:not(.btn):hover {
+    color: #b19cd9;
+}
+
+a:not(.btn):before {
+    display: none;
+}
+
+/* Button cursor fix */
+button, .btn, a, input[type="submit"], input[type="button"], .haunted-btn, [role="button"], 
+.btn-primary, .btn-secondary, input[type="reset"], 
+button.haunted-btn, a.btn, .nav-link, #loginBtn, #registerBtn, .haunted-form button {
+    cursor: pointer !important;
+    position: relative;
+    z-index: 10 !important;
+}
+
+/* Additional cursor fix for specific elements */
+.btn:hover, button:hover, a:hover, input[type="submit"]:hover, input[type="button"]:hover, .haunted-btn:hover {
+    cursor: pointer !important;
+}
+
+/* Fix z-index for clickable elements */
+.card, .haunted-card, .card-body, .form-group, form, .haunted-form {
+    position: relative;
+    z-index: 5;
+} 

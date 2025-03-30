@@ -1,0 +1,34 @@
+PARANORMAL INVESTIGATION AGENCY
+CASE FILE: #2023-0142
+DATE: October 14, 2023
+INVESTIGATOR: Agent Sarah Jensen
+
+LOCATION: 
+Abandoned Server Room, Blackwood Data Center
+1245 Technology Drive
+Ravenwood, VA
+
+CLIENT REPORT:
+Client reported unusual activity in their decommissioned server room. Systems that were powered down would occasionally power on by themselves. Security cameras would malfunction at precisely 3:14 AM each night. Maintenance staff reported feeling watched and experiencing sudden temperature drops.
+
+INVESTIGATION SUMMARY:
+Our team conducted a 48-hour investigation of the premises. We deployed EMF detectors, thermal cameras, and digital audio recorders throughout the server room. Results were as follows:
+
+1. Significant EMF spikes were detected near rack #7, which contained outdated storage arrays. Readings fluctuated between 4.7 and 6.2 mG, well above baseline.
+
+2. Thermal imaging revealed unexplained cold spots moving through the room, particularly between 2:30 AM and 3:45 AM.
+
+3. EVP session at 3:00 AM captured several class B voice phenomena, including what appears to be a voice saying "restore... backup... restore..."
+
+4. At exactly 3:14 AM on both nights, all digital equipment experienced power fluctuations, and our primary laptop rebooted with unusual disk activity.
+
+CONCLUSIONS:
+This appears to be a Class II Digital Residual Haunting. We believe the pattern is consistent with spectral data imprints, where digital information takes on properties that allow it to manifest in ways similar to traditional hauntings.
+
+RECOMMENDATIONS:
+1. Complete data sanitization of all storage devices in rack #7
+2. Installation of our proprietary electromagnetic shielding
+3. Follow-up investigation in 30 days to confirm resolution
+
+ADDENDUM:
+IT specialist Thomas Reeves noted that the affected systems previously hosted a project codenamed "ECHO," which involved experimental data compression algorithms. We've requested additional information about this project for further analysis. 

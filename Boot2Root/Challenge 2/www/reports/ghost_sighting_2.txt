@@ -1,0 +1,35 @@
+PARANORMAL INVESTIGATION AGENCY
+CASE FILE: #2023-0189
+DATE: November 2, 2023
+INVESTIGATOR: Agent Marcus Powell
+
+LOCATION: 
+Home Office of Professor Alan Blackwood
+78 Willow Lane
+Millfield, MA
+
+CLIENT REPORT:
+Professor Blackwood, a computer science researcher, reported unusual phenomena affecting his home network and computer systems. For three consecutive nights, his computer would activate at approximately 2:37 AM and begin running what appeared to be complex calculations. Files related to his quantum computing research would be found open in the morning, with minor modifications to equations and code comments. The client also reported hearing typing sounds from his office when no one was present.
+
+INVESTIGATION SUMMARY:
+Our technical team conducted a comprehensive analysis of the client's computer systems and network environment. Key findings include:
+
+1. Network packet analysis revealed unidentified data transmissions occurring between 2:30 AM and 3:15 AM. These transmissions used non-standard protocols that did not match any known communication methods.
+
+2. When logging was enabled at the router level, the anomalous activity would temporarily cease, only to resume when monitoring was reduced.
+
+3. Several binary files in the client's research directory contained embedded data that, when analyzed as audio, produced coherent speech-like patterns. Frequency analysis suggested similarities to human speech but with significant distortions.
+
+4. Motion sensors placed in the office detected movement patterns consistent with someone sitting at the computer desk during the hours of reported activity, despite no physical presence being visible on infrared cameras.
+
+CONCLUSIONS:
+This case presents characteristics of a Class III Technological Imprint with potential sentient properties. The entity appears to be interacting intelligently with the client's research, suggesting a possible connection to Professor Blackwood's work in quantum information theory.
+
+RECOMMENDATIONS:
+1. Installation of our specialized electromagnetic field isolation equipment
+2. Implementation of custom network filtering to intercept and analyze the anomalous communications
+3. Creation of a controlled environment to attempt direct communication with the entity
+4. Regular backups of the professor's research with encryption
+
+ADDENDUM:
+Professor Blackwood has disclosed that his research involves theoretical approaches to storing information in quantum states that exist between conventional binary values. He speculates that his work may have inadvertently created a unique form of information storage that has taken on autonomous properties. Further investigation is warranted. 

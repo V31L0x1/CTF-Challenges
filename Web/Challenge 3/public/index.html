@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Forum - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/haunted.css">
+    <style>
+        .welcome-banner {
+            background-color: rgba(25, 25, 35, 0.7);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid var(--haunted-purple);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(128, 0, 128, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+        }
+        
+        .posts-container {
+            position: relative;
+        }
+        
+        .haunted-posts-title {
+            margin-bottom: 30px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .haunted-posts-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--haunted-purple), transparent);
+        }
+        
+        .post-card {
+            background-color: rgba(25, 25, 35, 0.7);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--haunted-purple);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .post-title {
+            color: var(--haunted-accent);
+            margin-bottom: 10px;
+        }
+        
+        .post-metadata {
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            color: #aaa;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .post-preview {
+            margin-bottom: 15px;
+            color: #ddd;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        
+        .pagination-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .pagination-button {
+            background-color: rgba(30, 30, 45, 0.7);
+            border: 1px solid var(--haunted-purple);
+            color: #fff;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .pagination-button:hover {
+            background-color: rgba(60, 40, 80, 0.7);
+            transform: translateY(-2px);
+        }
+        
+        .pagination-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-button.disabled:hover {
+            background-color: rgba(30, 30, 45, 0.7);
+            transform: none;
+        }
+        
+        .page-indicator {
+            padding: 8px 15px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body class="haunted-bg">
+    <div class="ghost-container">
+        <div class="ghost"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark haunted-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="haunted-text">Haunted Forum</span>
+                <span class="floating-ghost">👻</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item" id="profileNavItem" style="display: none;">
+                        <a class="nav-link" href="/profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item" id="adminNavItem" style="display: none;">
+                        <a class="nav-link" href="/admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item" id="createPostNavItem" style="display: none;">
+                        <a class="nav-link" href="/create-post.html">New Post</a>
+                    </li>
+                    <li class="nav-item" id="loginNavItem">
+                        <a class="nav-link" href="/login.html">Login</a>
+                    </li>
+                    <li class="nav-item" id="registerNavItem">
+                        <a class="nav-link" href="/register.html">Register</a>
+                    </li>
+                    <li class="nav-item" id="logoutNavItem" style="display: none;">
+                        <a class="nav-link" href="#" id="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="welcome-banner">
+                    <h1 class="haunted-text mb-3">Welcome to the Haunted Forum</h1>
+                    <p>A place where digital specters gather to share their eerie tales and ghostly experiences.</p>
+                    <p><small>Enter at your own risk... 👻</small></p>
+                </div>
+                
+                <div class="posts-container">
+                    <h2 class="haunted-text haunted-posts-title">Recent Posts</h2>
+                    
+                    <div id="loadingSpinner" class="text-center">
+                        <div class="spooky-loading">
+                            <span>Summoning posts from the void</span>
+                            <span class="dots">...</span>
+                        </div>
+                    </div>
+                    
+                    <div id="postsContainer"></div>
+                    
+                    <div id="noPosts" style="display: none;" class="text-center mt-4">
+                        <p>No posts found. Be the first to share your ghostly tale!</p>
+                        <div id="createFirstPostBtn" style="display: none;">
+                            <a href="/create-post.html" class="btn btn-outline-light haunted-btn mt-2">Create the First Post</a>
+                        </div>
+                    </div>
+                    
+                    <div id="paginationContainer" class="pagination-container" style="display: none;">
+                        <button id="prevPageBtn" class="pagination-button disabled">Previous</button>
+                        <div id="pageIndicator" class="page-indicator">Page 1</div>
+                        <button id="nextPageBtn" class="pagination-button">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="haunted-footer mt-5">
+        <div class="container text-center">
+            <p>Haunted Forum &copy; 2023 | A ghostly place for digital spirits</p>
+            <p><small>Created for CTF Challenge</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/haunted.js"></script>
+    <script>
+        // Global variables
+        let allPosts = [];
+        let currentPage = 1;
+        const postsPerPage = 5;
+        let isAuthenticated = false;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication status
+            checkAuthentication();
+            
+            // Fetch posts
+            fetchPosts();
+            
+            // Setup pagination
+            document.getElementById('prevPageBtn').addEventListener('click', goToPreviousPage);
+            document.getElementById('nextPageBtn').addEventListener('click', goToNextPage);
+            
+            // Logout
+            document.getElementById('logout').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch('/api/logout')
+                    .then(() => {
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error logging out:', error);
+                    });
+            });
+        });
+        
+        // Check if user is authenticated
+        function checkAuthentication() {
+            fetch('/api/profile')
+                .then(response => {
+                    if (!response.ok) {
+                        // Not authenticated
+                        isAuthenticated = false;
+                        updateNavigation(false);
+                        throw new Error('Not authenticated');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // User is authenticated
+                    isAuthenticated = true;
+                    updateNavigation(true, data.user.isAdmin);
+                })
+                .catch(error => {
+                    console.error('Authentication check:', error);
+                });
+        }
+        
+        // Update navigation based on authentication status
+        function updateNavigation(authenticated, isAdmin = false) {
+            if (authenticated) {
+                // User is logged in
+                document.getElementById('profileNavItem').style.display = 'block';
+                document.getElementById('createPostNavItem').style.display = 'block';
+                document.getElementById('logoutNavItem').style.display = 'block';
+                document.getElementById('loginNavItem').style.display = 'none';
+                document.getElementById('registerNavItem').style.display = 'none';
+                
+                // Show admin link if user is admin
+                document.getElementById('adminNavItem').style.display = isAdmin ? 'block' : 'none';
+                
+                // Show create first post button if no posts
+                document.getElementById('createFirstPostBtn').style.display = 'block';
+            } else {
+                // User is not logged in
+                document.getElementById('profileNavItem').style.display = 'none';
+                document.getElementById('adminNavItem').style.display = 'none';
+                document.getElementById('createPostNavItem').style.display = 'none';
+                document.getElementById('logoutNavItem').style.display = 'none';
+                document.getElementById('loginNavItem').style.display = 'block';
+                document.getElementById('registerNavItem').style.display = 'block';
+                
+                // Hide create first post button
+                document.getElementById('createFirstPostBtn').style.display = 'none';
+            }
+        }
+        
+        // Fetch all posts
+        function fetchPosts() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            fetch('/api/posts')
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    if (!data.posts || data.posts.length === 0) {
+                        document.getElementById('noPosts').style.display = 'block';
+                        return;
+                    }
+                    
+                    // Sort posts by date (newest first)
+                    allPosts = data.posts.sort((a, b) => {
+                        return new Date(b.createdAt) - new Date(a.createdAt);
+                    });
+                    
+                    // Display pagination if needed
+                    if (allPosts.length > postsPerPage) {
+                        document.getElementById('paginationContainer').style.display = 'flex';
+                    }
+                    
+                    // Display first page of posts
+                    displayPosts(currentPage);
+                })
+                .catch(error => {
+                    console.error('Error fetching posts:', error);
+                    loadingSpinner.style.display = 'none';
+                    document.getElementById('postsContainer').innerHTML = 
+                        '<div class="alert alert-danger">Failed to load posts. Please try again later.</div>';
+                });
+        }
+        
+        // Display posts for the current page
+        function displayPosts(page) {
+            const postsContainer = document.getElementById('postsContainer');
+            postsContainer.innerHTML = '';
+            
+            // Calculate start and end index for current page
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = Math.min(startIndex + postsPerPage, allPosts.length);
+            
+            // Update page indicator
+            document.getElementById('pageIndicator').textContent = `Page ${page}`;
+            
+            // Update pagination buttons
+            document.getElementById('prevPageBtn').classList.toggle('disabled', page === 1);
+            document.getElementById('nextPageBtn').classList.toggle('disabled', endIndex >= allPosts.length);
+            
+            // Display posts for current page
+            for (let i = startIndex; i < endIndex; i++) {
+                const post = allPosts[i];
+                const postCard = document.createElement('div');
+                postCard.className = 'post-card';
+                
+                const postDate = new Date(post.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Create a temporary div to strip HTML for the preview
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = post.content;
+                const contentPreview = tempDiv.textContent.substring(0, 200) + (tempDiv.textContent.length > 200 ? '...' : '');
+                
+                // Create post HTML
+                postCard.innerHTML = `
+                    <h3 class="post-title">${escapeHTML(post.title)}</h3>
+                    <div class="post-metadata">
+                        <span>Posted by: ${escapeHTML(post.author)}</span>
+                        <span>${postDate}</span>
+                    </div>
+                    <div class="post-preview">${escapeHTML(contentPreview)}</div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="/post.html?id=${post.id}" class="btn btn-outline-light haunted-btn">Read More</a>
+                        ${post.reports > 0 ? `<span class="text-warning"><small>Reported ${post.reports} time(s)</small></span>` : ''}
+                    </div>
+                `;
+                
+                postsContainer.appendChild(postCard);
+                
+                // Add a spooky hover effect to the post card
+                postCard.addEventListener('mouseover', function() {
+                    this.style.boxShadow = `0 5px 20px rgba(${Math.random() * 50 + 100}, 0, ${Math.random() * 150 + 50}, 0.4)`;
+                });
+                
+                postCard.addEventListener('mouseout', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(128, 0, 128, 0.3)';
+                });
+            }
+        }
+        
+        // Go to previous page
+        function goToPreviousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPosts(currentPage);
+                window.scrollTo(0, 0);
+            }
+        }
+        
+        // Go to next page
+        function goToNextPage() {
+            const maxPage = Math.ceil(allPosts.length / postsPerPage);
+            if (currentPage < maxPage) {
+                currentPage++;
+                displayPosts(currentPage);
+                window.scrollTo(0, 0);
+            }
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</body>
+</html> 

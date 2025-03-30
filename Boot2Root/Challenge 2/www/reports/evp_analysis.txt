@@ -1,0 +1,80 @@
+PARANORMAL INVESTIGATION AGENCY
+ELECTRONIC VOICE PHENOMENA ANALYSIS REPORT
+
+CASE: #2023-0142 (Blackwood Data Center)
+ANALYST: Dr. Elena Vasquez
+DATE: October 16, 2023
+
+RECORDING EQUIPMENT USED:
+- High-sensitivity directional microphones (3)
+- Digital audio recorders with 24-bit/96kHz capability
+- Custom PIA spectral frequency analyzers
+- Environmental noise cancellation system
+
+ANALYSIS METHODOLOGY:
+All recordings were processed through our standard EVP enhancement protocol, including:
+1. Background noise filtering
+2. Frequency isolation (300Hz-3000Hz human speech range)
+3. Amplitude normalization
+4. Time-stretch analysis (75%, 50%, and 25% speeds)
+5. Reverse playback analysis
+6. Spectral visualization
+
+SIGNIFICANT FINDINGS:
+
+SESSION 1 - OCT 14, 2023 - 21:45-22:30
+Location: Main Server Room, Rack #7
+Background Noise Level: 42dB (HVAC system)
+
+Time Marker: 22:07:13
+Classification: Class B EVP
+Content: "...restore...backup...restore..." (Confidence: Medium)
+Notes: Voice appears male, monotone, with digital distortion overlay
+
+Time Marker: 22:14:56
+Classification: Class C EVP
+Content: "...trapped...system..." (Confidence: Low)
+Notes: Barely audible, required significant filtering to isolate
+
+Time Marker: 22:26:01
+Classification: Class B EVP
+Content: "...cannot escape...loop..." (Confidence: Medium)
+Notes: Words broken by static/interference
+
+SESSION 2 - OCT 15, 2023 - 02:30-03:45
+Location: Storage Room Adjacent to Server Room
+Background Noise Level: 36dB (Equipment cooling)
+
+Time Marker: 03:14:22
+Classification: Class A EVP
+Content: "The data is corrupted but I remain." (Confidence: High)
+Notes: Clear vocal capture, unusual cadence, voice carries digital artifacts
+
+Time Marker: 03:15:07
+Classification: Class B EVP
+Content: "Help me... find... original..." (Confidence: Medium)
+Notes: Accompanied by 18kHz tone, outside human hearing range
+
+Time Marker: 03:16:44
+Classification: Class B EVP
+Content: "Password... need... access..." (Confidence: Medium)
+Notes: Voice modulates between frequencies rapidly
+
+SPECTRAL ANALYSIS RESULTS:
+Several EVPs contained unusual frequency patterns not typical of either environmental contamination or human speech. Specifically, the 03:14:22 capture shows frequency distribution patterns similar to early speech synthesis systems, with artificial harmonic structures.
+
+CORRELATIONS WITH OTHER PHENOMENA:
+- EMF spikes occurred within 4.3 seconds of 78% of captured EVPs
+- Temperature drops of 3-5°F recorded during 03:14-03:17 timeframe
+- Digital equipment malfunctions corresponded with Class A EVP at 03:14:22
+
+CONCLUSIONS:
+The EVP evidence strongly supports the classification of this case as a Class II Digital Residual Haunting. The vocalization patterns, content referring to data/backups/restoration, and correlation with digital system anomalies suggest an information-based phenomenon rather than a traditional entity.
+
+RECOMMENDATIONS:
+1. Expanded recording session focused on 03:00-03:30 timeframe
+2. Attempt direct communication using digital prompts
+3. Historical research into previous data center operations and any incidents involving data loss
+
+Additional Note:
+Request for secured access to original ECHO project documentation has been submitted to better understand potential source of the phenomena. 

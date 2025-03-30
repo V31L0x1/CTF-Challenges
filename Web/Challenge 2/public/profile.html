@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - CyberSec Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Courier New', monospace;
+        }
+        .navbar {
+            background-color: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+        .navbar-brand {
+            color: #58a6ff;
+            font-weight: bold;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #238636;
+            border-color: #238636;
+        }
+        .btn-primary:hover {
+            background-color: #2ea043;
+            border-color: #2ea043;
+        }
+        .footer {
+            background-color: #161b22;
+            color: #8b949e;
+            padding: 20px 0;
+            border-top: 1px solid #30363d;
+            margin-top: 50px;
+        }
+        .profile-container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .profile-header {
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .jwt-token {
+            word-break: break-all;
+            background-color: #0d1117;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .blink {
+            animation: blinking 1s infinite;
+        }
+        @keyframes blinking {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">CyberSec Portal <span class="blink">_</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item" id="adminLink" style="display: none;">
+                        <a class="nav-link" href="admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="toast-container"></div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <h2>User Profile</h2>
+                    </div>
+                    
+                    <div class="profile-info">
+                        <div class="mb-4">
+                            <h5>Username:</h5>
+                            <p id="username">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>User ID:</h5>
+                            <p id="userId">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Access Level:</h5>
+                            <p id="accessLevel">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Your JWT Token:</h5>
+                            <div class="jwt-token" id="jwtToken">Loading...</div>
+                            <small class="text-muted">This token is used for authentication with the server.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <p>CyberSec Portal &copy; 2023 | CTF Challenge</p>
+            <p><small>All activity on this portal is monitored for security purposes.</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Show a toast notification
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type} alert-dismissible fade show`;
+            toast.role = 'alert';
+            
+            toast.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 5000);
+        }
+        
+        // Fetch user profile
+        async function fetchProfile() {
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.status === 401 || response.status === 403) {
+                    showToast('Your session has expired. Please log in again.', 'warning');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('isAdmin');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                // Display user info
+                document.getElementById('username').textContent = data.user.username;
+                document.getElementById('userId').textContent = data.user.id;
+                document.getElementById('accessLevel').textContent = data.user.isAdmin ? 'Administrator' : 'Standard User';
+                document.getElementById('jwtToken').textContent = token;
+                
+                // Show admin link if user is admin
+                if (data.user.isAdmin) {
+                    document.getElementById('adminLink').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('An error occurred while fetching profile data', 'danger');
+            }
+        }
+        
+        // Handle logout
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('isAdmin');
+            window.location.href = 'index.html';
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchProfile();
+        });
+    </script>
+</body>
+</html> 

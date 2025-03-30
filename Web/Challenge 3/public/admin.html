@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Haunted Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/haunted.css">
+    <style>
+        .flag-container {
+            background-color: rgba(14, 14, 20, 0.8);
+            border: 2px solid var(--haunted-purple);
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .flag-text {
+            font-family: monospace;
+            font-size: 1.5rem;
+            color: #50fa7b;
+            word-break: break-all;
+        }
+        
+        .admin-stats-card {
+            background-color: rgba(20, 20, 32, 0.8);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--haunted-purple);
+        }
+        
+        .admin-stats-card h3 {
+            color: var(--haunted-accent);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .reported-post {
+            background-color: rgba(20, 20, 32, 0.6);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="haunted-bg">
+    <div class="ghost-container">
+        <div class="ghost"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark haunted-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="haunted-text">Haunted Forum</span>
+                <span class="floating-ghost">👻</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/create-post.html">New Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="card haunted-card mb-4">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4 haunted-text">Admin Control Panel</h2>
+                        
+                        <div id="loadingSpinner" class="text-center">
+                            <div class="spooky-loading">
+                                <span>Verifying admin access</span>
+                                <span class="dots">...</span>
+                            </div>
+                        </div>
+                        
+                        <div id="adminContent" style="display: none;">
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <div class="admin-stats-card">
+                                        <h3>Forum Stats</h3>
+                                        <p>Total Users: <span id="totalUsers">--</span></p>
+                                        <p>Total Posts: <span id="totalPosts">--</span></p>
+                                        <p>Reported Posts: <span id="reportedPostsCount">--</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="admin-stats-card">
+                                        <h3>Secret Flag</h3>
+                                        <p>Congratulations! You have admin access to the Haunted Forum.</p>
+                                        <div class="flag-container">
+                                            <p>Here is your flag:</p>
+                                            <div class="flag-text" id="flagText">Loading flag...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="haunted-text mb-3">Reported Posts</h3>
+                            <div id="reportedPostsContainer">
+                                <p class="text-center">No reported posts found.</p>
+                            </div>
+                        </div>
+                        
+                        <div id="unauthorizedMessage" class="alert alert-danger" style="display: none;">
+                            <h4>Access Denied</h4>
+                            <p>You do not have administrator privileges to view this page.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="haunted-footer mt-5">
+        <div class="container text-center">
+            <p>Haunted Forum &copy; 2023 | A ghostly place for digital spirits</p>
+            <p><small>Created for CTF Challenge</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/haunted.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAccess();
+            
+            // Logout
+            document.getElementById('logout').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch('/api/logout')
+                    .then(() => {
+                        window.location.href = '/';
+                    })
+                    .catch(error => {
+                        console.error('Error logging out:', error);
+                    });
+            });
+        });
+        
+        // Check admin access
+        function checkAdminAccess() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const adminContent = document.getElementById('adminContent');
+            const unauthorizedMessage = document.getElementById('unauthorizedMessage');
+            
+            fetch('/api/profile')
+                .then(response => {
+                    if (!response.ok) {
+                        // Not authenticated at all, redirect to login
+                        window.location.href = '/login.html';
+                        throw new Error('Not authenticated');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.user.isAdmin) {
+                        // User is admin, fetch flag and display admin content
+                        loadingSpinner.style.display = 'none';
+                        adminContent.style.display = 'block';
+                        
+                        // Update admin stats
+                        fetchAdminStats();
+                        
+                        // Fetch flag
+                        fetchFlag();
+                    } else {
+                        // User is authenticated but not admin
+                        loadingSpinner.style.display = 'none';
+                        unauthorizedMessage.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Authentication error:', error);
+                    loadingSpinner.style.display = 'none';
+                    unauthorizedMessage.style.display = 'block';
+                });
+        }
+        
+        // Fetch admin stats
+        function fetchAdminStats() {
+            // Fetch posts to count them
+            fetch('/api/posts')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('totalPosts').textContent = data.posts.length;
+                    
+                    // Count reported posts
+                    const reportedPosts = data.posts.filter(post => post.reports > 0);
+                    document.getElementById('reportedPostsCount').textContent = reportedPosts.length;
+                    
+                    // Display reported posts
+                    displayReportedPosts(reportedPosts);
+                })
+                .catch(error => {
+                    console.error('Error fetching posts:', error);
+                });
+            
+            // Set total users (just a mock since we don't have an API for this)
+            document.getElementById('totalUsers').textContent = '10';
+        }
+        
+        // Display reported posts
+        function displayReportedPosts(reportedPosts) {
+            const container = document.getElementById('reportedPostsContainer');
+            
+            if (reportedPosts.length === 0) {
+                container.innerHTML = '<p class="text-center">No reported posts found.</p>';
+                return;
+            }
+            
+            // Sort by reports count (highest first)
+            reportedPosts.sort((a, b) => b.reports - a.reports);
+            
+            container.innerHTML = '';
+            
+            reportedPosts.forEach(post => {
+                const reportedPost = document.createElement('div');
+                reportedPost.className = 'reported-post';
+                
+                const postDate = new Date(post.createdAt).toLocaleString();
+                
+                reportedPost.innerHTML = `
+                    <h4>${escapeHTML(post.title)}</h4>
+                    <p>Posted by: ${escapeHTML(post.author)} on ${postDate}</p>
+                    <p>Reported ${post.reports} time(s)</p>
+                    <a href="/post.html?id=${post.id}" class="btn btn-sm btn-outline-light" target="_blank">View Post</a>
+                `;
+                
+                container.appendChild(reportedPost);
+            });
+        }
+        
+        // Fetch flag
+        function fetchFlag() {
+            fetch('/api/admin/flag')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch flag');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.flag) {
+                        // Display flag with spooky typing effect
+                        const flagElement = document.getElementById('flagText');
+                        spookyType(flagElement, data.flag);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching flag:', error);
+                    document.getElementById('flagText').textContent = 'Error loading flag';
+                });
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</body>
+</html> 

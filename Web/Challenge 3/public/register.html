@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Haunted Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/haunted.css">
+</head>
+<body class="haunted-bg">
+    <div class="ghost-container">
+        <div class="ghost"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark haunted-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="haunted-text">Haunted Forum</span>
+                <span class="floating-ghost">👻</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card haunted-card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4 haunted-text">Join the Haunted Realm</h2>
+                        <form id="registerForm" class="haunted-form">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Choose a Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                                <div class="form-text">Must be at least 3 characters long.</div>
+                                <div id="usernameError" class="invalid-feedback" style="display: none;"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Create a Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <div class="form-text">Must be at least 6 characters long.</div>
+                                <div id="passwordError" class="invalid-feedback" style="display: none;"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                <div id="confirmError" class="invalid-feedback" style="display: none;"></div>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn haunted-btn" id="submitBtn" style="cursor: pointer !important; z-index: 100 !important;">Register</button>
+                            </div>
+                            <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;"></div>
+                            <div id="successMessage" class="alert alert-success mt-3" style="display: none;"></div>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p>Already have an account? <a href="/login.html" class="text-info" style="cursor: pointer !important; z-index: 100 !important; position: relative;">Login here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="haunted-footer mt-5">
+        <div class="container text-center">
+            <p>Haunted Forum &copy; 2023 | A ghostly place for digital spirits</p>
+            <p><small>Created for CTF Challenge</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/haunted.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            fetch('/api/profile')
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/';
+                    }
+                })
+                .catch(error => {
+                    console.log('Not authenticated, registration page is appropriate');
+                });
+
+            // Handle form submission
+            $('#registerForm').submit(function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const username = $('#username').val();
+                const password = $('#password').val();
+                const confirmPassword = $('#confirmPassword').val();
+                
+                // Reset error messages
+                $('.invalid-feedback').hide();
+                $('#errorMessage').hide();
+                
+                // Validate form
+                let isValid = true;
+                
+                if (!username || username.length < 3) {
+                    $('#usernameError').text('Username must be at least 3 characters').show();
+                    isValid = false;
+                }
+                
+                if (!password || password.length < 6) {
+                    $('#passwordError').text('Password must be at least 6 characters').show();
+                    isValid = false;
+                }
+                
+                if (password !== confirmPassword) {
+                    $('#confirmError').text('Passwords do not match').show();
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    addShakeEffect(document.querySelector('.card-body'));
+                    return;
+                }
+                
+                // Add shake effect to submit button
+                addShakeEffect(document.getElementById('submitBtn'));
+                
+                // Disable form during submission
+                $('#submitBtn').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...');
+                
+                // Submit registration request
+                fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Registration failed');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Success - redirect to home page
+                    window.location.href = '/';
+                })
+                .catch(error => {
+                    // Show error message
+                    $('#errorMessage').text(error.message).show();
+                    addShakeEffect(document.getElementById('errorMessage'));
+                    
+                    // Re-enable form
+                    $('#submitBtn').prop('disabled', false).text('Register');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

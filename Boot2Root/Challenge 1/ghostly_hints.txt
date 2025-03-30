@@ -1,0 +1,17 @@
+Dear Agent,
+
+Welcome to your first day at the Paranormal Investigation Agency. As you know, 
+we've been tracking unusual activity on this server for weeks. We suspect a 
+digital entity has gained control of the root account.
+
+Your mission is to gain higher access and confirm the nature of this entity.
+
+Remember your training:
+1. Always look for SUID binaries that can be exploited
+2. Documentation for "find" command might be particularly helpful
+3. The entity leaves traces of its presence in all system operations
+
+Good luck, and be careful. We've lost contact with the last three agents who
+attempted this investigation.
+
+- Director Hayes 

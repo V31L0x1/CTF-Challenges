@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Haunted Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/haunted.css">
+    <style>
+        .profile-header {
+            padding: 20px;
+            background-color: rgba(20, 20, 32, 0.8);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--haunted-purple);
+        }
+        
+        .profile-stats {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(30, 30, 45, 0.5);
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            color: var(--haunted-accent);
+        }
+        
+        .post-card {
+            background-color: rgba(25, 25, 35, 0.7);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--haunted-purple);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .post-title {
+            color: var(--haunted-accent);
+            margin-bottom: 10px;
+        }
+        
+        .post-date {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .post-preview {
+            margin-bottom: 15px;
+            color: #ddd;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body class="haunted-bg">
+    <div class="ghost-container">
+        <div class="ghost"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark haunted-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="haunted-text">Haunted Forum</span>
+                <span class="floating-ghost">👻</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item" id="adminNavItem" style="display: none;">
+                        <a class="nav-link" href="/admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/create-post.html">New Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div id="profileContainer" style="display: none;">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="profile-header">
+                        <h2 class="haunted-text"><span id="usernameDisplay">...</span>'s Profile</h2>
+                        <p>Member since: <span id="memberSince">...</span></p>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-number" id="postCount">0</div>
+                                <div>Posts</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="viewCount">0</div>
+                                <div>Views</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="likesCount">0</div>
+                                <div>Likes</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card haunted-card mb-4">
+                        <div class="card-body">
+                            <h3 class="haunted-text mb-4">Your Posts</h3>
+                            
+                            <div id="loadingSpinner" class="text-center">
+                                <div class="spooky-loading">
+                                    <span>Summoning posts from the void</span>
+                                    <span class="dots">...</span>
+                                </div>
+                            </div>
+                            
+                            <div id="userPostsContainer"></div>
+                            
+                            <div id="noPostsMessage" style="display: none;" class="text-center mt-4">
+                                <p>You haven't created any posts yet.</p>
+                                <a href="/create-post.html" class="btn btn-outline-light haunted-btn mt-2">Create Your First Post</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="loginRequired" style="display: none;">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card haunted-card">
+                        <div class="card-body text-center">
+                            <h2 class="haunted-text mb-4">Access Denied</h2>
+                            <p>You need to login to view your profile.</p>
+                            <div class="mt-4">
+                                <a href="/login.html" class="btn btn-outline-light haunted-btn me-2">Login</a>
+                                <a href="/register.html" class="btn btn-outline-light haunted-btn">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="haunted-footer mt-5">
+        <div class="container text-center">
+            <p>Haunted Forum &copy; 2023 | A ghostly place for digital spirits</p>
+            <p><small>Created for CTF Challenge</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/haunted.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthentication();
+            
+            // Logout
+            document.getElementById('logout').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch('/api/logout')
+                    .then(() => {
+                        window.location.href = '/';
+                    })
+                    .catch(error => {
+                        console.error('Error logging out:', error);
+                    });
+            });
+        });
+        
+        // Check if user is authenticated
+        function checkAuthentication() {
+            fetch('/api/profile')
+                .then(response => {
+                    if (!response.ok) {
+                        // Not authenticated
+                        document.getElementById('profileContainer').style.display = 'none';
+                        document.getElementById('loginRequired').style.display = 'block';
+                        throw new Error('Not authenticated');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Show admin link if user is admin
+                    if (data.user.isAdmin) {
+                        document.getElementById('adminNavItem').style.display = 'block';
+                    }
+                    
+                    // Display user information
+                    document.getElementById('profileContainer').style.display = 'block';
+                    document.getElementById('usernameDisplay').textContent = data.user.username;
+                    
+                    // Format and display member since date
+                    const memberSince = new Date(data.user.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    document.getElementById('memberSince').textContent = memberSince;
+                    
+                    // Set random stats (for challenge purposes only)
+                    document.getElementById('viewCount').textContent = Math.floor(Math.random() * 100) + 50;
+                    document.getElementById('likesCount').textContent = Math.floor(Math.random() * 30) + 5;
+                    
+                    // Fetch user posts
+                    fetchUserPosts(data.user.username);
+                })
+                .catch(error => {
+                    console.error('Authentication error:', error);
+                });
+        }
+        
+        // Fetch posts by the current user
+        function fetchUserPosts(username) {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const userPostsContainer = document.getElementById('userPostsContainer');
+            const noPostsMessage = document.getElementById('noPostsMessage');
+            
+            fetch('/api/posts')
+                .then(response => response.json())
+                .then(data => {
+                    // Filter posts by the current user
+                    const userPosts = data.posts.filter(post => post.author === username);
+                    
+                    // Update post count
+                    document.getElementById('postCount').textContent = userPosts.length;
+                    
+                    // Hide loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    if (userPosts.length === 0) {
+                        noPostsMessage.style.display = 'block';
+                        return;
+                    }
+                    
+                    // Display user posts
+                    userPostsContainer.innerHTML = '';
+                    userPosts.forEach(post => {
+                        const postCard = document.createElement('div');
+                        postCard.className = 'post-card';
+                        
+                        const postDate = new Date(post.createdAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        
+                        // Create a temporary div to strip HTML for the preview
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = post.content;
+                        const contentPreview = tempDiv.textContent.substring(0, 150) + (tempDiv.textContent.length > 150 ? '...' : '');
+                        
+                        postCard.innerHTML = `
+                            <h4 class="post-title">${escapeHTML(post.title)}</h4>
+                            <div class="post-date">${postDate}</div>
+                            <div class="post-preview">${escapeHTML(contentPreview)}</div>
+                            <a href="/post.html?id=${post.id}" class="btn btn-sm btn-outline-light">View Post</a>
+                        `;
+                        
+                        userPostsContainer.appendChild(postCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching posts:', error);
+                    loadingSpinner.style.display = 'none';
+                    userPostsContainer.innerHTML = '<p class="text-center text-danger">Error loading posts. Please try again later.</p>';
+                });
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</body>
+</html> 

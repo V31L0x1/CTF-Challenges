@@ -1,0 +1,57 @@
+PARANORMAL INVESTIGATION AGENCY
+EQUIPMENT MAINTENANCE LOGS - Q4 2023
+
+DATE: October 5, 2023
+TECHNICIAN: J. Martinez
+EQUIPMENT CHECKED:
+- EMF Detectors (5) - Calibrated and batteries replaced
+- Thermal Cameras (3) - Firmware updated to v4.2.1
+- Digital Audio Recorders (7) - Tested and verified
+- Motion Sensors (12) - Two units (#8, #11) required sensor replacement
+- Environmental Monitoring Suite - All sensors operational
+NOTES: All equipment is now operational and ready for field deployment. The new spectral frequency analyzers have arrived but require additional testing before field use.
+
+DATE: October 12, 2023
+TECHNICIAN: A. Williams
+EQUIPMENT CHECKED:
+- Server Room Equipment Suite - Full system diagnostic
+- Data Storage Arrays - Integrity check passed
+- Network Monitoring Tools - Updated intrusion detection signatures
+- Backup Systems - Verified daily/weekly/monthly rotation is functioning
+NOTES: The anomaly detection algorithm needs further refinement. Currently generating too many false positives when analyzing EVP recordings. Will coordinate with Dr. Chen to adjust sensitivity parameters.
+
+DATE: October 19, 2023
+TECHNICIAN: J. Martinez
+EQUIPMENT CHECKED:
+- Field Investigation Kits (4) - Inventory verified
+- Mobile Workstations (3) - OS updates applied
+- Quantum Fluctuation Detectors (2) - Calibrated
+- Specialized Cameras - Infrared filters replaced
+NOTES: Kit #3 was returned with the K-II meter malfunctioning. Unit has been replaced. Team leaders are reminded to complete damage reports when equipment issues occur in the field.
+
+DATE: October 26, 2023
+TECHNICIAN: T. Reeves
+EQUIPMENT CHECKED:
+- Network Security Systems - Penetration testing completed
+- Data Encryption Modules - Verified functioning
+- Secure Communication Equipment - Signal integrity confirmed
+- SSH Keys and Access Protocols - Rotated per schedule
+NOTES: Implemented new security protocols for remote access. All field agents must update their authentication keys by 11/05/2023. SSH key for ghosthunter has been updated. Key rotation schedule has been updated to bi-weekly.
+
+DATE: November 2, 2023
+TECHNICIAN: A. Williams
+EQUIPMENT CHECKED:
+- Digital Storage Systems - Defragmentation and integrity check
+- Backup Systems - Test restoration performed successfully
+- Environmental Sensors - All calibrated
+- Power Management Systems - UPS load testing completed
+NOTES: Increased backup frequency for critical research data. Daily backups now run at 3AM instead of 5AM due to lower system load. Implemented new data archival process with tar for long-term storage.
+
+DATE: November 9, 2023
+TECHNICIAN: T. Reeves
+EQUIPMENT CHECKED:
+- Security Camera Systems - Motion detection verified
+- Access Control Systems - All door sensors operational
+- Intrusion Prevention System - Rules updated
+- Firewall Rules - Reviewed and optimized
+NOTES: Security audit completed. No significant vulnerabilities found. Reminder to all staff: please do not store sensitive files in world-readable locations. Found several instances of improper file permissions during the audit. 

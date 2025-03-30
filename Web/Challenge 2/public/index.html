@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Courier New', monospace;
+        }
+        .navbar {
+            background-color: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+        .navbar-brand {
+            color: #58a6ff;
+            font-weight: bold;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #238636;
+            border-color: #238636;
+        }
+        .btn-primary:hover {
+            background-color: #2ea043;
+            border-color: #2ea043;
+        }
+        .btn-secondary {
+            background-color: #6e7681;
+            border-color: #6e7681;
+        }
+        .btn-secondary:hover {
+            background-color: #8b949e;
+            border-color: #8b949e;
+        }
+        .code-font {
+            font-family: 'Courier New', monospace;
+            background-color: #0d1117;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .footer {
+            background-color: #161b22;
+            color: #8b949e;
+            padding: 20px 0;
+            border-top: 1px solid #30363d;
+            margin-top: 50px;
+        }
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .terminal {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        .terminal-header {
+            color: #58a6ff;
+            margin-bottom: 10px;
+        }
+        .blink {
+            animation: blinking 1s infinite;
+        }
+        @keyframes blinking {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">CyberSec Portal <span class="blink">_</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item" id="profileLink" style="display: none;">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item" id="adminLink" style="display: none;">
+                        <a class="nav-link" href="admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item" id="loginNav">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item" id="registerNav">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                    <li class="nav-item" id="logoutNav" style="display: none;">
+                        <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="toast-container"></div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="terminal">
+                    <div class="terminal-header">$ Welcome to CyberSec Portal</div>
+                    <p>This secure portal provides access to classified cybersecurity information.</p>
+                    <p>Only authorized personnel can access admin areas. Standard users have limited privileges.</p>
+                    <p>Register for an account or login to continue...</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Security Advisory</h2>
+                        <p class="card-text">Our security team has recently implemented a new authentication system using JSON Web Tokens (JWT). This system ensures that only authorized users can access protected resources.</p>
+                        <div class="code-font">
+                            <pre>// Example JWT Usage
+const token = jwt.sign(
+  { userId: 123, username: 'user' },
+  secret,
+  { expiresIn: '1h' }
+);</pre>
+                        </div>
+                        <p class="card-text mt-3">All communications are encrypted and secure. Please report any security vulnerabilities to the admin team.</p>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Portal Features</h2>
+                        <ul>
+                            <li>Secure authentication with JWT</li>
+                            <li>User profiles with customization options</li>
+                            <li>Admin panel for authorized personnel</li>
+                            <li>Regular security updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <p>CyberSec Portal &copy; 2023 | CTF Challenge</p>
+            <p><small>All activity on this portal is monitored for security purposes.</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            
+            if (token) {
+                document.getElementById('loginNav').style.display = 'none';
+                document.getElementById('registerNav').style.display = 'none';
+                document.getElementById('logoutNav').style.display = 'block';
+                document.getElementById('profileLink').style.display = 'block';
+                
+                if (isAdmin) {
+                    document.getElementById('adminLink').style.display = 'block';
+                }
+            }
+        }
+        
+        // Handle logout
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('isAdmin');
+            window.location.href = 'index.html';
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+        });
+    </script>
+</body>
+</html> 

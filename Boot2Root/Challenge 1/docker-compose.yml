@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  spectral-gateway:
+    build: .
+    container_name: spectral-gateway
+    ports:
+      - "80:80"
+      - "2222:22"
+    restart: unless-stopped
+    volumes:
+      - ./challenge_data:/data
+    networks:
+      - spectral_network
+    cap_add:
+      - NET_ADMIN  # Allow firewall configuration
+    environment:
+      - CTF_FLAG=flag{sp3ctral_pr1v1leg3_3scalat1on}
+      - USER_PASSWORD=Gh0stHunt3r!
+
+networks:
+  spectral_network:
+    driver: bridge 
